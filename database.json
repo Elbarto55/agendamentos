@@ -1,0 +1,387 @@
+{
+    "services": [
+        {
+            "id": 1,
+            "name": "Manicure Simples",
+            "description": "Cutilagem e esmaltação completa",
+            "duration": 40,
+            "price": 35,
+            "icon": "💅",
+            "category": "Mãos",
+            "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+            "id": 2,
+            "name": "Pedicure Simples",
+            "description": "Cutilagem e esmaltação dos pés",
+            "duration": 45,
+            "price": 40,
+            "icon": "🦶",
+            "category": "Pés",
+            "image": "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+            "id": 3,
+            "name": "Manicure + Pedicure",
+            "description": "Combo completo pés e mãos",
+            "duration": 80,
+            "price": 70,
+            "icon": "✨",
+            "category": "Combo",
+            "image": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+            "id": 4,
+            "name": "Alongamento em Gel",
+            "description": "Alongamento com acabamento natural",
+            "duration": 120,
+            "price": 120,
+            "icon": "💎",
+            "category": "Alongamentos",
+            "image": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+            "id": 5,
+            "name": "Spa dos Pés",
+            "description": "Hidratação profunda e massagem",
+            "duration": 50,
+            "price": 60,
+            "icon": "🌿",
+            "category": "Spa",
+            "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+            "id": 6,
+            "name": "Nail Art",
+            "description": "Decoração artística (por unha)",
+            "duration": 15,
+            "price": 10,
+            "icon": "🎨",
+            "category": "Mãos",
+            "image": "https://images.unsplash.com/photo-1522337360705-8763d84a783a?auto=format&fit=crop&q=80&w=800"
+        }
+    ],
+    "appointments": [
+        {
+            "id": 1768171880043,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-13",
+            "time": "11:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16996100940",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T22:51:20.043Z"
+        },
+        {
+            "id": 1768172337680,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-13",
+            "time": "11:30",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16996100940",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T22:58:57.680Z"
+        },
+        {
+            "id": 1768172489030,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-14",
+            "time": "09:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16996100940",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:01:29.030Z"
+        },
+        {
+            "id": 1768173396058,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-22",
+            "time": "15:30",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16996100940",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:16:36.058Z"
+        },
+        {
+            "id": 1768173756730,
+            "services": [
+                {
+                    "id": 2,
+                    "name": "Pedicure Simples",
+                    "description": "Cutilagem e esmaltação dos pés",
+                    "duration": 45,
+                    "price": 40,
+                    "icon": "🦶",
+                    "category": "Pés",
+                    "image": "https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-22",
+            "time": "11:30",
+            "totalDuration": 45,
+            "totalPrice": 40,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16996100940",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:22:36.730Z"
+        },
+        {
+            "id": 1768174024199,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-22",
+            "time": "14:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:27:04.199Z"
+        },
+        {
+            "id": 1768174305056,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-14",
+            "time": "14:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:31:45.056Z"
+        },
+        {
+            "id": 1768174432097,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-13",
+            "time": "12:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:33:52.097Z"
+        },
+        {
+            "id": 1768174668013,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-21",
+            "time": "11:00",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:37:48.013Z"
+        },
+        {
+            "id": 1768175922047,
+            "services": [
+                {
+                    "id": 1,
+                    "name": "Manicure Simples",
+                    "description": "Cutilagem e esmaltação completa",
+                    "duration": 40,
+                    "price": 35,
+                    "icon": "💅",
+                    "category": "Mãos",
+                    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-20",
+            "time": "11:30",
+            "totalDuration": 40,
+            "totalPrice": 35,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-11T23:58:42.047Z"
+        },
+        {
+            "id": 1768176225260,
+            "services": [
+                {
+                    "id": 5,
+                    "name": "Spa dos Pés",
+                    "description": "Hidratação profunda e massagem",
+                    "duration": 50,
+                    "price": 60,
+                    "icon": "🌿",
+                    "category": "Spa",
+                    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800"
+                }
+            ],
+            "date": "2026-01-20",
+            "time": "12:00",
+            "totalDuration": 50,
+            "totalPrice": 60,
+            "customer": {
+                "name": "Ruan Silva Franca",
+                "phone": "16997674506",
+                "email": "Ruanr74060@gmail.com"
+            },
+            "status": "Confirmado",
+            "createdAt": "2026-01-12T00:03:45.260Z"
+        }
+    ],
+    "appSettings": {
+        "openingHour": 9,
+        "closingHour": 18,
+        "interval": 30,
+        "workSaturday": false,
+        "workSunday": false,
+        "blockedDates": [
+            "14/01/2026",
+            "2026-01-14"
+        ],
+        "whatsappMsg": "Olá {nome}, seu agendamento para {data} às {hora} está confirmado!",
+        "adminWhatsappMsg": "🔔 *NOVO AGENDAMENTO*\n\n👤 *{nome}*\n📅 {data}\n🕒 {hora}\n💅 {servicos}\n💰 {valor}\n\n(Acesse o painel para ver detalhes)",
+        "adminUser": {
+            "user": "admins",
+            "pass": "4512"
+        },
+        "whatsappActive": true,
+        "businessPhone": "16997674506",
+        "webhookActive": false,
+        "webhookUrl": "",
+        "paymentMethods": [
+            {
+                "name": "Cartão de Débito",
+                "icon": "💳",
+                "description": ""
+            }
+        ]
+    },
+    "categories": [
+        "Mãos",
+        "Pés",
+        "Combo",
+        "Alongamentos",
+        "Spa"
+    ]
+}

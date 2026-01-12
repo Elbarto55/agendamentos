@@ -1,0 +1,12 @@
+{
+    "name": "ka-nails-design",
+    "version": "1.0.0",
+    "description": "Sistema de Agendamento Kah Nails",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}

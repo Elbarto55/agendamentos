@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kah Nails Design - Agendamento de Manicure</title>
+    <meta name="description"
+        content="Agende seu horário de manicure, pedicure e nail art de forma rápida e fácil. Escolha seus serviços e horários disponíveis.">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Link para o CSS na pasta sistema -->
+    <link rel="stylesheet" href="sistema/css/index.css">
+    <!-- Flatpickr (Calendário Lindo) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <img src="sistema/img/kah.jpeg" alt="Logo Kah Nails" class="logo-img">
+                    Kah Nails Design
+                </h1>
+                <nav class="nav">
+                    <button class="nav-btn active" data-page="home">Início</button>
+                    <div class="header-filters" id="category-filters">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="action-btn" id="open-payment-modal-btn"
+                        style="margin-left: 10px; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: 500; cursor: pointer;">💳
+                        Formas de Pagamento</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h2 class="hero-title">Beleza nas suas mãos</h2>
+                    <p class="hero-subtitle">Agende seu horário e escolha os serviços perfeitos para você</p>
+                </div>
+
+
+
+                <!-- Services Section -->
+                <div class="section" id="services-section">
+
+
+
+                    <h3 class="section-title">Escolha seus Serviços</h3>
+                    <div class="services-grid" id="services-grid">
+                        <!-- Services will be dynamically added -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointments Page -->
+        <section id="appointments-page" class="page">
+            <div class="container">
+                <h2 class="page-title">Meus Agendamentos</h2>
+                <div class="appointments-list" id="appointments-list">
+                    <!-- Appointments will be dynamically added -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Bar -->
+    <div class="floating-bar" id="floating-bar">
+        <div class="floating-info">
+            <span id="floating-count">0 serviços</span>
+            <span id="floating-total">Total: R$ 0,00</span>
+        </div>
+        <button class="btn btn-primary" id="open-booking-modal">
+            Escolher Horário 📅
+        </button>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content booking-modal-content">
+            <button class="modal-close-btn" id="close-booking-modal">×</button>
+
+            <div class="booking-step" id="step-datetime">
+                <h3 class="modal-title">Quando você gostaria?</h3>
+
+                <div class="form-group">
+                    <label>Escolha a Data</label>
+                    <input type="date" id="date-picker" class="date-picker">
+                </div>
+
+                <div class="time-section" id="time-section" style="display: none;">
+                    <label>Escolha o Horário</label>
+                    <div class="time-slots" id="time-slots">
+                        <!-- Time slots dynamically added -->
+                    </div>
+                </div>
+
+                <button id="btn-confirm-datetime" class="btn btn-primary btn-block"
+                    style="display: none; margin-top: 15px;">
+                    Continuar
+                </button>
+            </div>
+
+            <div class="booking-step" id="step-customer" style="display: none;">
+                <h3 class="modal-title">Seus Dados</h3>
+                <form class="customer-form" id="customer-form">
+                    <div class="form-group">
+                        <label for="customer-name">Nome Completo</label>
+                        <input type="text" id="customer-name" required placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Telefone</label>
+                        <input type="tel" id="customer-phone" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">E-mail (opcional)</label>
+                        <input type="email" id="customer-email" placeholder="seu@email.com">
+                    </div>
+
+                    <div class="booking-summary-mini">
+                        <p>Resumo: <strong id="summary-date"></strong> às <strong id="summary-time"></strong></p>
+                        <p>Serviços: <span id="summary-services"></span></p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large btn-block">
+                        Confirmar Agendamento
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- Appointments Page -->
+    <section id="appointments-page" class="page">
+        <div class="container">
+            <h2 class="page-title">Meus Agendamentos</h2>
+            <div class="appointments-list" id="appointments-list">
+                <!-- Appointments will be dynamically added -->
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content" style="position: relative;">
+            <div class="modal-icon">✨</div>
+            <h3 class="modal-title">Agendamento Confirmado!</h3>
+            <p class="modal-text">Seu horário foi reservado com sucesso.<br>O comprovante foi enviado para seu WhatsApp.
+            </p>
+            <button class="btn btn-primary" id="modal-close" style="width: 100%;">Ok, Obrigada!</button>
+        </div>
+    </div>
+
+    <!-- Payment Methods Modal -->
+    <div class="modal" id="payment-methods-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header" style="justify-content: space-between;">
+                <h3 class="modal-title">Formas de Pagamento 💳</h3>
+                <button class="modal-close-btn" id="close-payment-modal">×</button>
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Aceitamos as seguintes formas de pagamento:
+            </p>
+            <div id="payment-methods-display-list" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+    <script src="sistema/js/app.js?v=1003"></script>
+</body>
+
+</html>

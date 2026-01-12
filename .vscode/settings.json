@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.port": 5505,
+    "liveServer.settings.ignoreFiles": [
+        "database.json",
+        "**/*.json"
+    ]
+}

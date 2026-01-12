@@ -1,0 +1,17 @@
+{
+    "name": "ka-nails-design",
+    "version": "1.0.0",
+    "description": "Sistema de Agendamento Kah Nails",
+    "main": "sistema/server.js",
+    "scripts": {
+        "start": "node sistema/server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "qrcode-terminal": "^0.12.0",
+        "whatsapp-web.js": "^1.34.4"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

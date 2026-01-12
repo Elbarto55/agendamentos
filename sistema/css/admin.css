@@ -1,0 +1,1368 @@
+/* Admin Specific Styles */
+body {
+    overflow: hidden;
+    /* Remove scroll do corpo */
+    height: 100vh;
+}
+
+
+/* Login Screen */
+/* Login Screen - Vibrant & Premium Design */
+.login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Fundo gradiente rico e moderno */
+    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Formas Decorativas no Fundo */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.8;
+    animation: float 10s infinite ease-in-out;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: #FF6B6B;
+    top: -50px;
+    left: -50px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 350px;
+    height: 350px;
+    background: #4ECDC4;
+    bottom: -50px;
+    right: -50px;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-30px) scale(1.05);
+    }
+}
+
+.login-box {
+    position: relative;
+    z-index: 10;
+    /* Efeito Glassmorphism Premium */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    text-align: center;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-icon-container {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary), #FF6B6B);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+    animation: pulseIcon 3s infinite;
+}
+
+@keyframes pulseIcon {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.4);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 20px rgba(255, 105, 180, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 105, 180, 0);
+    }
+}
+
+.login-icon {
+    font-size: 2rem;
+    color: white;
+}
+
+.login-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+    font-family: 'Playfair Display', serif;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    z-index: 2;
+    filter: grayscale(1);
+    opacity: 0.6;
+    transition: all 0.3s;
+}
+
+.login-input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.login-input:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.15);
+}
+
+.login-input:focus+.input-icon,
+.input-group:focus-within .input-icon {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #888;
+    padding: 0;
+    transition: color 0.3s;
+    z-index: 5;
+}
+
+.toggle-password-btn:hover {
+    color: var(--primary);
+}
+
+/* Botão Moderno */
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary), #FF6B6B);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.5);
+    filter: brightness(1.1);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* Toast Notification */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 5px solid #ccc;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast-error {
+    border-left-color: #ff4757;
+}
+
+.toast-error .toast-icon {
+    color: #ff4757;
+}
+
+.toast-success {
+    border-left-color: #2ed573;
+}
+
+.toast-success .toast-icon {
+    color: #2ed573;
+}
+
+.toast-icon {
+    font-size: 1.5rem;
+}
+
+.toast-message {
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Efeito de Brilho no Botão */
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    20% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+/* Admin Layout */
+.admin-panel {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    /* Altura fixa da tela */
+    position: relative;
+    overflow: hidden;
+    /* Impede scroll global */
+    width: 100%;
+}
+
+/* Sidebar Toggle Button (Visível Sempre) */
+.sidebar-toggle {
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar {
+    width: 250px;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: margin-left 0.3s ease;
+    /* Animação suave para Desktop */
+    z-index: 1000;
+}
+
+/* Estado Fechado no Desktop (Escondido para esquerda) */
+.sidebar.closed {
+    margin-left: -250px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* X grudado no nome */
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    justify-content: flex-start;
+    /* Alinha tudo à esquerda */
+}
+
+.sidebar-close {
+    display: block;
+    /* Visível Sempre (Mobile e Desktop) */
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+.sidebar-close:hover {
+    color: var(--primary);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+.sidebar-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    white-space: nowrap;
+}
+
+.sidebar-btn:hover,
+.sidebar-btn.active {
+    background: hsla(280, 70%, 60%, 0.1);
+    color: var(--primary);
+}
+
+.sidebar-btn.active {
+    background: linear-gradient(90deg, hsla(320, 75%, 55%, 0.2), transparent);
+    border-left: 3px solid var(--primary);
+}
+
+.logout-btn {
+    margin-top: auto;
+    color: var(--text-muted);
+}
+
+/* Admin Content */
+/* Admin Content */
+.admin-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+    /* Scroll apenas no conteúdo */
+    height: 100%;
+    position: relative;
+}
+
+.admin-view {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.admin-view.active {
+    display: block;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.date-display {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    background: hsla(320, 75%, 55%, 0.1);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+}
+
+.stat-info h3 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Tables */
+.table-container {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    overflow-x: auto;
+    /* Rolagem se tabela for larga */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.admin-table th {
+    background: var(--bg-tertiary);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.confirmado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.cancelado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.pending-filter {
+    filter: blur(5px);
+}
+
+/* Agenda List */
+.agenda-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.appointment-card {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    /* flex-row desktop */
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
+
+.appointment-header {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex: 1;
+}
+
+.appointment-date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-primary);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    min-width: 80px;
+    text-align: center;
+}
+
+.appointment-time {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.appointment-status {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.appointment-services {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.appointment-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.appointment-total {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+/* Settings View */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.setting-card {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.setting-card h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.admin-input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Modal Premium */
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-box {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: var(--spacing-lg);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 0.1s;
+}
+
+/* Service Form Layout (Lado a Lado) */
+.service-form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    /* Foto (1) | Dados (1.5) */
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 700px) {
+    .service-form-layout {
+        grid-template-columns: 1fr;
+        /* Um embaixo do outro no celular */
+    }
+}
+
+/* Botão Upload Bonito 📸 */
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background: var(--bg-primary);
+    /* Fundo suave */
+    border: 2px dashed var(--primary);
+    /* Borda tracejada rosa */
+    color: var(--primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    gap: 10px;
+}
+
+.custom-file-upload:hover {
+    background: var(--primary);
+    color: white;
+    border-style: solid;
+    transform: translateY(-2px);
+}
+
+.custom-file-upload span {
+    font-size: 1.1rem;
+}
+
+/* Agenda Header & Date Picker */
+.agenda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.date-filter-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* Shadow Only - No Border */
+    border: none !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.date-input-wrapper:hover {
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    /* Pill Shape */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(238, 82, 83, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(238, 82, 83, 0.4);
+    filter: brightness(1.1);
+}
+
+/* Aggressive Reset for Date Input & Flatpickr */
+#admin-date-filter,
+#date-block,
+#block-date-input,
+/* Added Real Blocked Days Input */
+input.flatpickr-input,
+input.flatpickr-input.active,
+input.flatpickr-input:focus,
+input.flatpickr-input:active,
+#admin-date-filter:focus-visible,
+input[readonly] {
+    /* Added readonly selector */
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    width: 170px;
+    /* Increased from 140px */
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Fix for possible browser default highlight */
+*:focus {
+    outline: none !important;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.close-modal-btn:hover {
+    color: var(--primary);
+}
+
+.modal-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn-whatsapp-modal {
+    width: 100%;
+    padding: 15px;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-whatsapp-modal:hover {
+    transform: scale(1.02);
+}
+
+/* RESPONSIVE MOBILE - SIDEBAR OFF-CANVAS (GAVETA) + CARDS */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        display: flex;
+        /* Mostra o botão */
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        /* Esconde TOTALMENTE para esquerda */
+        height: 100%;
+        width: 250px;
+        transform: none;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1200;
+        box-shadow: none;
+    }
+
+    .sidebar.active {
+        left: 0;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* MANTÉM TUDO VISÍVEL NA SIDEBAR ABERTA */
+    .sidebar h3,
+    .logo-icon+h3,
+    .sidebar-btn span:not(:first-child) {
+        display: block !important;
+    }
+
+    /* Header da Sidebar no Mobile */
+    .sidebar-header {
+        justify-content: space-between;
+        padding-top: 10px;
+        width: 100%;
+    }
+
+    /* Botão Fechar (X) */
+    .sidebar-close {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .sidebar-btn {
+        justify-content: flex-start;
+        padding: var(--spacing-md);
+    }
+
+    .admin-content {
+        padding: var(--spacing-md);
+        padding-top: 80px;
+        width: 100%;
+    }
+
+    .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .appointment-header {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .appointment-footer {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+}
+
+/* Date Picker Pretty Button */
+.admin-date-picker {
+    padding: 12px 20px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--primary);
+    /* Borda rosa */
+    border-radius: 50px;
+    /* Redondo estilo pílula */
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    outline: none;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.1);
+    transition: all 0.2s;
+    /* Remover estilo de input padrão */
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.admin-date-picker:hover {
+    background: var(--bg-tertiary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.2);
+}
+
+/* FLATPIKER CUSTOMIZAÇÃO (Calendário Rosa) 🌸 */
+.flatpickr-calendar {
+    font-family: var(--font-primary) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--border) !important;
+    background: var(--bg-card) !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.startRange.prevMonthDay,
+.flatpickr-day.endRange.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay,
+.flatpickr-day.startRange.nextMonthDay,
+.flatpickr-day.endRange.nextMonthDay {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.flatpickr-months .flatpickr-month {
+    background: var(--primary) !important;
+    color: #fff !important;
+    fill: #fff !important;
+    height: 50px !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: var(--primary) !important;
+}
+
+span.flatpickr-weekday {
+    color: var(--text-primary) !important;
+    font-weight: bold !important;
+}
+
+.flatpickr-day.today {
+    border-color: var(--primary) !important;
+}
+
+/* Modal de Confirmação Widescreen (Ultra Wide Responsivo) */
+#confirm-modal .modal-box {
+    width: 95%;
+    max-width: 850px;
+    /* Alvo em desktop */
+
+    padding: 25px 40px;
+    border-radius: 15px;
+
+    /* Flex Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    /* Proteção para Celulares/Telas Pequenas */
+    max-height: 90vh;
+    /* Nunca maior que a tela */
+    overflow-y: auto;
+    /* Permite scroll se precisar */
+}
+
+#confirm-modal h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+#confirm-modal p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    max-width: 90%;
+}
+
+/* Botões de Ação na Confirmação */
+#confirm-modal .modal-actions {
+    display: flex;
+    flex-direction: row;
+    /* Força Lado a Lado */
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+}
+
+#confirm-modal .btn {
+    flex: 1;
+    max-width: 250px;
+    padding: 12px;
+    font-size: 1.1rem;
+}
+
+/* Animação de Entrada Bonita */
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Notification Dropdown */
+.notification-bell {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: var(--bg-secondary);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.notification-bell:hover {
+    background: var(--bg-tertiary);
+    transform: scale(1.05);
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+    border: 2px solid var(--bg-secondary);
+    display: none;
+    /* Hidden by default */
+}
+
+.badge.active {
+    display: block;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    /* Right next to the bell */
+    right: auto;
+    width: 320px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px var(--shadow);
+    z-index: 2000;
+    display: none;
+    /* Hidden by default */
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideRight 0.2s ease;
+}
+
+.notification-dropdown.active {
+    display: flex;
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.notification-header {
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
+
+.text-btn:hover {
+    opacity: 0.8;
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.notification-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.notification-item.unread {
+    background: hsla(320, 75%, 55%, 0.05);
+    border-left: 3px solid var(--primary);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notif-icon {
+    font-size: 1.2rem;
+}
+
+.notif-content strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.notif-content p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.notif-time {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+.empty-notif {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Responsive Notification Dropdown */
+@media (max-width: 768px) {
+    .notification-dropdown {
+        position: fixed;
+        top: 70px;
+        /* Below header */
+        left: 10px;
+        right: 10px;
+        width: auto;
+        max-width: none;
+        z-index: 2100;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Empilhar cards no celular para dar mais espaço */
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Reduzir fonte dos números para não estourar */
+    .stat-info p {
+        font-size: 1.5rem !important;
+        word-break: break-word;
+    }
+
+    /* Garantir que textos não vazem */
+    .stat-card {
+        min-width: 0;
+    }
+
+    .stat-info {
+        min-width: 0;
+        overflow-wrap: break-word;
+    }
+
+    /* Ajuste na tabela para permitir scroll suave */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Navbar/Header ajutes */
+    .header-bar h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Botões de filtro e excluir menos largos e espaçados */
+    .header-bar .btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    /* Dashboard Header Align */
+    .header-bar {
+        align-items: stretch;
+    }
+}

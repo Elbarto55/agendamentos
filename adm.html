@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Kah Nails Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Ajuste de caminho: sistema/css -->
+    <link rel="stylesheet" href="/sistema/css/index.css">
+    <link rel="stylesheet" href="/sistema/css/admin.css">
+    <!-- Flatpickr (Calendário Lindo) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <style>
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+    </style>
+    <script>
+        // Check Auth immediately
+        // If not logged in, show login screen. If logged in, hide it.
+        // Script at bottom handles the check.
+    </script>
+    <!-- Scripts Externos -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen" style="display: flex;">
+        <!-- Background Shapes for Glassmorphism -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-icon-container">
+                    <div class="login-icon">🔐</div>
+                </div>
+                <h2>Bem-vindo</h2>
+                <p>Acesse o painel administrativo</p>
+            </div>
+
+            <form id="login-form" onsubmit="event.preventDefault(); handleLogin();">
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="admin-username" placeholder="Usuário" required class="login-input">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="admin-password" placeholder="Senha" required class="login-input">
+                    <button type="button" id="toggle-password" class="toggle-password-btn" title="Ver senha"
+                        onclick="togglePass()">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span>Entrar</span>
+                    <div class="btn-shine"></div>
+                </button>
+            </form>
+            <!-- Toast Notification Container -->
+            <div id="toast-container" class="toast-container"></div>
+
+            <script>
+                // Toast Notification System
+                function showToast(message, type = 'error') {
+                    const container = document.getElementById('toast-container');
+                    const toast = document.createElement('div');
+                    toast.className = `toast toast-${type}`;
+
+                    let icon = '⚠️';
+                    if (type === 'success') icon = '✨';
+                    if (type === 'error') icon = '🔴';
+
+                    toast.innerHTML = `
+                        <div class="toast-icon">${icon}</div>
+                        <div class="toast-message">${message}</div>
+                    `;
+
+                    container.appendChild(toast);
+
+                    // Animate In
+                    requestAnimationFrame(() => {
+                        toast.classList.add('show');
+                    });
+
+                    // Remove after 3s
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        setTimeout(() => {
+                            toast.remove();
+                        }, 300);
+                    }, 3000);
+                }
+
+                function togglePass() {
+                    const input = document.getElementById('admin-password');
+                    const icon = document.querySelector('.eye-icon');
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.innerText = '🙈';
+                    } else {
+                        input.type = 'password';
+                        icon.innerText = '👁️';
+                    }
+                }
+
+                async function handleLogin() {
+                    const u = document.getElementById('admin-username').value.trim();
+                    const p = document.getElementById('admin-password').value.trim();
+                    const btn = document.querySelector('.login-btn');
+                    const btnText = btn.querySelector('span');
+
+                    // Validation
+                    if (!u || !p) {
+                        showToast('Preencha todos os campos!', 'error');
+                        return;
+                    }
+
+                    btn.disabled = true;
+                    const originalText = btnText.innerText;
+                    btnText.innerText = "Verificando...";
+
+                    try {
+                        const port = window.location.port;
+                        const baseUrl = (port === '3003' || port === '') ? '' : 'http://127.0.0.1:3003';
+
+                        const res = await fetch(`${baseUrl}/api/db?t=${Date.now()}`);
+                        const db = await res.json();
+
+                        const savedUser = (db.appSettings && db.appSettings.adminUser) ? db.appSettings.adminUser.user : 'admin';
+                        const savedPass = (db.appSettings && db.appSettings.adminUser) ? db.appSettings.adminUser.pass : '1234';
+
+                        if (u === savedUser && p === savedPass) {
+                            sessionStorage.setItem('isAdmin', 'true');
+                            showToast('Login realizado com sucesso!', 'success');
+
+                            // Animate out
+                            const screen = document.getElementById('login-screen');
+                            screen.style.opacity = '0';
+                            screen.style.transform = 'scale(1.1)';
+                            setTimeout(() => {
+                                screen.style.display = 'none';
+                                document.getElementById('admin-panel').style.display = 'flex';
+                                if (typeof updateDashboard === 'function') updateDashboard();
+                            }, 500);
+                        } else {
+                            // Shake effect
+                            const box = document.querySelector('.login-box');
+                            box.animate([
+                                { transform: 'translateX(0)' },
+                                { transform: 'translateX(-10px)' },
+                                { transform: 'translateX(10px)' },
+                                { transform: 'translateX(-10px)' },
+                                { transform: 'translateX(0)' }
+                            ], { duration: 400 });
+
+                            showToast('Usuário ou Senha incorretos!', 'error');
+                            btn.disabled = false;
+                            btnText.innerText = originalText;
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        // Fallback
+                        if (u === 'admin' && p === '1234') {
+                            sessionStorage.setItem('isAdmin', 'true');
+                            showToast('Modo Offline ativado', 'success');
+
+                            // Animate out
+                            const screen = document.getElementById('login-screen');
+                            screen.style.opacity = '0';
+                            screen.style.transform = 'scale(1.1)';
+                            setTimeout(() => {
+                                screen.style.display = 'none';
+                                document.getElementById('admin-panel').style.display = 'flex';
+                                if (typeof updateDashboard === 'function') updateDashboard();
+                            }, 500);
+                        } else {
+                            showToast('Erro de conexão ou senha incorreta', 'error');
+                            btn.disabled = false;
+                            btnText.innerText = originalText;
+                        }
+                    }
+                }
+
+                // Check on load
+                if (sessionStorage.getItem('isAdmin') === 'true') {
+                    document.getElementById('login-screen').style.display = 'none';
+                }
+            </script>
+        </div>
+    </div>
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel" style="display: none;">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Ajuste de caminho: sistema/img -->
+                    <img src="/sistema/img/kah.jpeg" alt="Kah Logo" class="logo-img-admin"
+                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+                    <h3>Kah Admin</h3>
+                </div>
+                <button id="sidebar-close" class="sidebar-close">×</button>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-view="dashboard">
+                    <span>📊</span> Dashboard
+                </button>
+                <button class="sidebar-btn" data-view="calendar">
+                    <span>📅</span> Agenda
+                </button>
+                <button class="sidebar-btn" data-view="clients">
+                    <span>👥</span> Clientes
+                </button>
+                <button class="sidebar-btn" data-view="services">
+                    <span>💅</span> Serviços
+                </button>
+                <button class="sidebar-btn" data-view="categories">
+                    <span>🏷️</span> Categorias
+                </button>
+                <button class="sidebar-btn" data-view="settings">
+                    <span>⚙️</span> Configurações
+                </button>
+                <button class="sidebar-btn logout-btn" id="logout-btn">
+                    <span>🚪</span> Sair
+                </button>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+
+            <!-- Notification Bell -->
+            <div id="notification-bell-container" style="position: relative;">
+                <div id="notification-bell" class="notification-bell" title="Novos Agendamentos">
+                    🔔<span id="notification-badge" class="badge">0</span>
+                </div>
+                <!-- Dropdown -->
+                <div id="notification-dropdown" class="notification-dropdown">
+                    <div class="notification-header">
+                        <span>Notificações</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="clear-notifications-btn" class="text-btn">Limpar Tudo</button>
+                            <button id="close-notification-dropdown"
+                                style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer; line-height:0.5;">&times;</button>
+                        </div>
+                    </div>
+                    <div id="notification-list" class="notification-list">
+                        <!-- Items injected via JS -->
+                        <div class="empty-notif">Nenhuma notificação nova.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="admin-view active">
+                <div class="header-bar">
+                    <div>
+                        <h2>Visão Geral 📊</h2>
+                        <p class="date-display" id="current-date">Carregando data...</p>
+                    </div>
+                    <!-- Botão CHEFÃO (Remove Tudo) -->
+                    <button class="btn" style="background: #ef4444; color: white;"
+                        onclick="clearAllData('full_reset')">🗑️ Excluir Tudo</button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <h3>Faturamento Hoje</h3>
+                            <p class="stat-value" id="today-revenue">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <h3>Agendamentos Hoje</h3>
+                            <p class="stat-value" id="today-appointments">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💎</div>
+                        <div class="stat-info">
+                            <h3>Faturamento Mensal</h3>
+                            <p class="stat-value" id="month-revenue">R$ 0,00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h3>Últimos Agendamentos Recebidos 🆕</h3>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Cliente</th>
+                                    <th>Serviços</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-table-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendar View -->
+            <section id="calendar-view" class="admin-view">
+                <div class="header-bar">
+                    <h2>Agenda 📅</h2>
+                    <div class="date-filter-container">
+                        <div class="date-input-wrapper">
+                            <span class="date-icon">📅</span>
+                            <input type="text" id="admin-date-filter" placeholder="Selecione a data">
+                        </div>
+                        <button class="btn-danger" id="clear-agenda-btn" onclick="clearAllData('agenda')">🗑️ Excluir
+                            Tudo</button>
+                    </div>
+                </div>
+                <div class="agenda-list" id="agenda-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Clients View -->
+            <section id="clients-view" class="admin-view">
+                <div class="header-bar">
+                    <h2>Meus Clientes 👥</h2>
+                    <button class="btn" style="background: #ef4444; color: white;" onclick="clearAllData('clients')">🗑️
+                        Excluir Tudo</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Visitas</th>
+                                <th>Última Visita</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clients-table-body">
+                            <!-- JS Populates -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Services View -->
+            <section id="services-view" class="admin-view">
+                <div class="header-bar">
+                    <h2>Catálogo de Serviços 💅</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn" style="background: #ef4444; color: white;"
+                            onclick="clearAllData('services')">🗑️
+                            Excluir Tudo</button>
+                        <button class="btn" style="background: var(--primary); color: white;"
+                            onclick="openServiceModal()">+
+                            Novo Serviço</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Ícone</th>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th>Duração</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-table-body">
+                            <!-- JS Populates -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Categories View -->
+            <section id="categories-view" class="admin-view">
+                <div class="header-bar">
+                    <h2>Gerenciar Categorias 🏷️</h2>
+                    <button class="btn" style="background: #ef4444; color: white;"
+                        onclick="clearAllData('categories')">🗑️
+                        Excluir Tudo</button>
+                </div>
+
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <h3>Nova Categoria</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <input type="text" id="new-category-input" class="admin-input"
+                                    placeholder="Nome da Categoria (ex: Sobrancelha)">
+                            </div>
+                            <button class="btn btn-primary" id="add-category-btn">Adicionar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome da Categoria</th>
+                                    <th style="width: 100px;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categories-table-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="settings-view" class="admin-view">
+                <div class="header-bar">
+                    <h2>Configurações do Sistema</h2>
+                </div>
+
+                <div class="settings-container">
+                    <!-- Horários -->
+                    <div class="setting-card">
+                        <h3>⏰ Horário de Funcionamento</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Abertura</label>
+                                <input type="number" id="setting-open-hour" min="0" max="23" class="admin-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Fechamento</label>
+                                <input type="number" id="setting-close-hour" min="0" max="23" class="admin-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Intervalo entre Clientes (minutos)</label>
+                            <input type="number" id="setting-interval" min="0" step="5" class="admin-input">
+                        </div>
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label style="display: block; margin-bottom: 8px;">Dias de Funcionamento Extras</label>
+                            <div style="display: flex; gap: 20px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="checkbox" id="setting-work-saturday"
+                                        style="width: 18px; height: 18px; cursor: pointer;">
+                                    <label for="setting-work-saturday" style="cursor: pointer; margin: 0;">Atender aos
+                                        Sábados</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="checkbox" id="setting-work-sunday"
+                                        style="width: 18px; height: 18px; cursor: pointer;">
+                                    <label for="setting-work-sunday" style="cursor: pointer; margin: 0;">Atender aos
+                                        Domingos</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="save-hours-btn">Salvar Horários</button>
+                    </div>
+
+                    <!-- Dias Bloqueados -->
+                    <div class="setting-card">
+                        <h3>🚫 Dias Bloqueados (Folgas/Feriados)</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="date-input-wrapper">
+                                <span class="date-icon">📅</span>
+                                <input type="text" id="block-date-input" placeholder="Selecionar Data">
+                            </div>
+                            <button class="btn-danger" id="add-block-date-btn"
+                                style="width: 100%; justify-content: center;">
+                                🔒 Bloquear Data
+                            </button>
+                        </div>
+                        <div class="blocked-dates-list" id="blocked-dates-list">
+                            <!-- Lista de datas bloqueadas -->
+                        </div>
+                    </div>
+
+                    <!-- Fomas de Pagamento -->
+                    <div class="setting-card">
+                        <h3>💳 Formas de Pagamento Aceitas</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="width: 80px;">
+                                <input type="text" id="payment-emoji" class="admin-input" placeholder="Emoji"
+                                    style="text-align: center;">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <input type="text" id="payment-input" class="admin-input"
+                                    placeholder="Nome (ex: Crédito)">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <input type="text" id="payment-desc" class="admin-input"
+                                    placeholder="Descrição (ex: Taxa de 5%)">
+                            </div>
+                            <button class="btn btn-primary" id="add-payment-btn">Adicionar</button>
+                        </div>
+
+                        <div class="table-container" style="margin-top: 15px;">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Forma de Pagamento</th>
+                                        <th style="width: 100px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="payment-methods-table-body">
+                                    <!-- Populated JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Contato do Negócio -->
+                    <div class="setting-card" style="grid-column: 1 / -1; border-left: 5px solid #25D366;">
+                        <h3>📱 WhatsApp da Loja (Receber Agendamentos)</h3>
+                        <div class="form-group">
+                            <label>Número do WhatsApp Comercial</label>
+                            <input type="text" id="setting-business-phone" class="admin-input"
+                                placeholder="5511999999999">
+                            <small style="color: grey;">O cliente enviará a confirmação para este número.</small>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="save-contact-btn"
+                            style="background: #25D366; border: none;">Salvar
+                            Número</button>
+                    </div>
+
+                    <!-- Mensagem WhatsApp (CLIENTE) -->
+                    <div class="setting-card" style="grid-column: 1 / -1;">
+                        <h3>💬 Mensagem de Confirmação (para o Cliente)</h3>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <input type="checkbox" id="setting-whatsapp-active"
+                                style="width: 20px; height: 20px; cursor: pointer;">
+                            <label for="setting-whatsapp-active" style="font-weight: 600; cursor: pointer;">Enviar
+                                confirmação para o cliente</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Texto da Mensagem</label>
+                            <p style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">
+                                Use: <strong>{nome}</strong>, <strong>{data}</strong>, <strong>{hora}</strong>,
+                                <strong>{servicos}</strong>, <strong>{valor}</strong>.
+                            </p>
+                            <textarea id="setting-whatsapp-msg" class="admin-input" rows="3"
+                                style="width: 100%; min-height: 80px;"
+                                placeholder="Olá {nome}, confirmamos seu horário para {data} às {hora}."></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-primary" id="save-msg-btn">Salvar Mensagem
+                                Cliente</button>
+                            <button type="button" class="btn" id="test-msg-btn"
+                                style="background: #25D366; color: white; border: none; font-weight: bold;">Testar Envio
+                                📱</button>
+                        </div>
+                    </div>
+
+                    <!-- Mensagem WhatsApp (ADMIN) -->
+                    <div class="setting-card" style="grid-column: 1 / -1; border-left: 5px solid #007bff;">
+                        <h3>🔔 Mensagem de Notificação (para o Dono)</h3>
+                        <div class="form-group">
+                            <label>Texto da Notificação</label>
+                            <p style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">
+                                Use: <strong>{nome}</strong>, <strong>{data}</strong>, <strong>{hora}</strong>,
+                                <strong>{servicos}</strong>, <strong>{valor}</strong>.
+                            </p>
+                            <textarea id="setting-admin-msg" class="admin-input" rows="3"
+                                style="width: 100%; min-height: 80px;"
+                                placeholder="🔔 NOVO AGENDAMENTO: {nome} - {data} às {hora}."></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="save-admin-msg-btn"
+                            style="background: #007bff;">Salvar
+                            Mensagem Admin</button>
+                    </div>
+
+                    <!-- Automação / Disparador API -->
+                    <div class="setting-card" style="grid-column: 1 / -1; border-left: 5px solid #8e44ad;">
+                        <h3>🤖 Disparador de Mensagem (WhatsApp Loja)</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">
+                            Configure aqui se você usa um <strong>Disparador</strong> externo (como Zapier, n8n,
+                            Z-API) para que o cliente receba a confirmação vinda <strong>do número da loja</strong>.
+                        </p>
+
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <input type="checkbox" id="setting-webhook-active" style="width: 20px; height: 20px;">
+                            <label for="setting-webhook-active" style="font-weight: 600; cursor: pointer;">
+                                Usar Disparador de Mensagem (Confirmar pelo nº da Loja)
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL do Disparador (Webhook)</label>
+                            <input type="url" id="setting-webhook-url" class="admin-input"
+                                placeholder="https://hook.us1.make.com/..."
+                                style="font-family: monospace; font-size: 0.9rem;">
+                            <small style="color: grey;">O sistema enviará os dados do agendamento para este
+                                link.</small>
+                        </div>
+
+                        <button class="btn btn-primary" id="save-webhook-btn" style="background: #8e44ad;">Salvar
+                            Configuração do Disparador</button>
+                    </div>
+
+                    <!-- Área de Teste Separada -->
+                    <div class="setting-card"
+                        style="grid-column: 1 / -1; border-color: #25D366; border-left-width: 5px;">
+                        <h3 style="color: #25D366;">🧪 Teste de Sistema</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                            Faça um envio de teste para o seu próprio WhatsApp para verificar se a formatação e o link
+                            estão funcionando corretamente.
+                        </p>
+                        <button class="btn btn-secondary" id="test-msg-btn"
+                            style="background: #25D366; color: white; border: none; width: 100%; padding: 15px; font-weight: bold;">
+                            📲 Enviar Teste para meu WhatsApp
+                        </button>
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+
+    <!-- Modal Teste WhatsApp -->
+    <div id="whatsapp-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>📱 Teste WhatsApp</h3>
+                <button id="close-whatsapp-modal" class="close-modal-btn">×</button>
+            </div>
+            <p>Digite o número que receberá a mensagem de teste:</p>
+            <input type="tel" id="test-phone-input" class="modal-input" placeholder="DDD + Número" value="55">
+            <button id="confirm-test-btn" class="btn-whatsapp-modal">Enviar Agora 🚀</button>
+        </div>
+    </div>
+    <div id="service-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="service-modal-title">Novo Serviço</h3>
+                <button onclick="closeServiceModal()" class="close-modal-btn">×</button>
+            </div>
+            <form id="service-form" class="service-form-layout">
+                <input type="hidden" id="service-id">
+
+                <!-- Coluna Esquerda: FOTO -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label>Foto do Serviço</label>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 10px; align-items: center; border: 1px solid #eee; padding: 15px; border-radius: 15px;">
+                        <div id="image-preview"
+                            style="width: 100%; height: 200px; background: #fdf2f8; border-radius: 10px; display: none; background-size: cover; background-position: center;">
+                        </div>
+
+                        <label for="service-image-file" class="custom-file-upload">
+                            📸 Escolher Foto
+                        </label>
+                        <input type="file" id="service-image-file" accept="image/*" style="display: none;">
+                        <input type="hidden" id="service-image-base64">
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: DADOS -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div>
+                        <label>Nome do Serviço</label>
+                        <input type="text" id="service-name" class="modal-input" placeholder="Ex: Manicure" required
+                            style="margin-bottom: 0;">
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">
+                            <label>Ícone</label>
+                            <input type="text" id="service-icon" class="modal-input" placeholder="💅"
+                                style="text-align: center; margin-bottom: 0;">
+                        </div>
+                        <div style="flex: 2;">
+                            <label>Preço (R$)</label>
+                            <input type="number" id="service-price" class="modal-input" placeholder="0.00" step="0.01"
+                                required style="margin-bottom: 0;">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Duração (min)</label>
+                        <input type="number" id="service-duration" class="modal-input" placeholder="Minutos" required
+                            style="margin-bottom: 0;">
+                    </div>
+
+                    <div>
+                        <label>Descrição</label>
+                        <textarea id="service-description" class="modal-input" rows="3" placeholder="Detalhes..."
+                            style="text-align: left; margin-bottom: 0;"></textarea>
+                    </div>
+
+                    <div>
+                        <label>Categoria</label>
+                        <select id="service-category" class="modal-input" style="margin-bottom: 20px;">
+                            <option value="Mãos">Mãos 💅</option>
+                            <option value="Pés">Pés 🦶</option>
+                            <option value="Combo">Combo Mão + Pé ✨</option>
+                            <option value="Alongamentos">Alongamentos 💎</option>
+                            <option value="Spa">Spa e Tratamentos 🌿</option>
+                            <option value="Outros">Outros 🎨</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-whatsapp-modal"
+                        style="background: var(--primary); margin-top: 10px;">Salvar Serviço</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay" style="display: none; z-index: 5000;">
+        <div class="modal-box" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">⚠️</div>
+            <h3 id="confirm-title" style="margin-bottom: 10px;">Tem certeza?</h3>
+            <p id="confirm-message" style="color: grey; margin-bottom: 20px;">Essa ação não pode ser desfeita.</p>
+
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="confirm-cancel-btn" class="btn"
+                    style="flex: 1; background: #eee; color: #555; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none;">Cancelar</button>
+                <button id="confirm-yes-btn" class="btn"
+                    style="flex: 1; background: #ff4757; color: white; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);">Sim,
+                    Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay" style="display: none; z-index: 6000;">
+        <div class="modal-box" style="max-width: 400px; text-align: center; border-color: var(--primary);">
+            <div id="success-icon"
+                style="font-size: 4rem; margin-bottom: 15px; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                ✨</div>
+            <h3 id="success-title" style="margin-bottom: 10px; color: var(--text-primary); font-size: 1.8rem;">Sucesso!
+            </h3>
+            <p id="success-message" style="color: var(--text-secondary); margin-bottom: 25px; font-size: 1.2rem;">
+                Operação realizada.</p>
+            <button id="success-btn" onclick="closeSuccessModal()" class="btn"
+                style="background: var(--primary); color: white; width: 100%; border-radius: 50px; padding: 15px; font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);">
+                OK, Maravilha! 💖
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Glassmorphism Confirm Modal -->
+    <div class="modal-overlay" id="custom-confirm-modal"
+        style="display: none; justify-content: center; align-items: center; z-index: 9999; background: rgba(0,0,0,0.5);">
+        <div class="modal-box confirm"
+            style="background: #ffffff; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 400px; width: 90%; position: relative;">
+            <div class="modal-icon" style="font-size: 3rem; margin-bottom: 15px;">❓</div>
+            <h3 id="confirm-msg"
+                style="color: #2d3436; margin-bottom: 25px; font-size: 1.2rem; font-weight: 600; font-family: 'Outfit', sans-serif;">
+                Tem certeza?</h3>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="confirm-btn-yes"
+                    style="background: linear-gradient(135deg, #00b894, #00cec9); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);">Sim,
+                    Confirmar</button>
+                <button id="confirm-btn-no"
+                    style="background: #dfe6e9; color: #636e72; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ajuste de caminho: sistema/js -->
+    <script src="/sistema/js/admin.js?v=1029"></script>
+</body>
+
+</html>

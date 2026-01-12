@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Acesso Admin - Kah Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/sistema/css/index.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #FFF0F5 0%, #E6E6FA 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .manager-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .manager-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--primary);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .manager-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 5px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .manager-input:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.1);
+        }
+
+        .manager-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.25);
+        }
+
+        .manager-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.35);
+            filter: brightness(1.05);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="manager-box">
+        <div class="manager-icon">🔐</div>
+        <h2>Atualizar Acesso Admin</h2>
+        <p>Defina o novo usuário e senha para o painel.</p>
+
+        <form id="update-form" onsubmit="event.preventDefault(); handleUpdate();">
+            <div style="text-align: left; margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Novo
+                    Usuário</label>
+                <input type="text" id="new-user" class="manager-input" placeholder="Ex: admin" required minlength="3">
+            </div>
+            <div style="text-align: left; margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem;">Nova
+                    Senha</label>
+                <input type="password" id="new-pass" class="manager-input" placeholder="******" required minlength="3">
+            </div>
+            <button type="submit" class="manager-btn" id="update-btn">Atualizar Dados</button>
+        </form>
+
+        <div id="status-msg" style="margin-top: 15px; font-weight: 500; display: none;"></div>
+
+        <div style="margin-top: 20px; font-size: 0.9rem;">
+            <a href="adm.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">&larr; Voltar
+                para Login</a>
+        </div>
+    </div>
+
+    <!-- Custom Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+            <h3 style="color: #2c3e50; font-size: 1.5rem; margin-bottom: 10px;">Sucesso!</h3>
+            <p style="color: #7f8c8d; font-size: 1.1rem; margin-bottom: 30px;">
+                Os dados de acesso foram atualizados.<br>
+                Você já pode usar a nova senha.
+            </p>
+            <button class="manager-btn" onclick="window.location.href='adm.html'">Ir para o Painel</button>
+        </div>
+    </div>
+
+    <!-- Custom Error Modal -->
+    <div id="error-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+            <h3 style="color: #c0392b; font-size: 1.5rem; margin-bottom: 10px;">Atenção!</h3>
+            <p id="error-msg" style="color: #7f8c8d; font-size: 1.1rem; margin-bottom: 30px;">
+                Erro desconhecido.
+            </p>
+            <button class="manager-btn" style="background: #c0392b;" onclick="closeErrorModal()">Tentar
+                Novamente</button>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles for Cadastros Page */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 90%;
+            width: 350px;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+    </style>
+
+    <script>
+        function closeErrorModal() {
+            document.getElementById('error-modal').classList.remove('active');
+        }
+
+        function showError(msg) {
+            document.getElementById('error-msg').innerText = msg;
+            document.getElementById('error-modal').classList.add('active');
+        }
+
+        async function handleUpdate() {
+            const newUser = document.getElementById('new-user').value.trim();
+            const newPass = document.getElementById('new-pass').value.trim();
+            const btn = document.getElementById('update-btn');
+            // Remove text status logic, simpler with modal
+            // const status = document.getElementById('status-msg');
+
+            if (!newUser || !newPass) return;
+
+            btn.disabled = true;
+            btn.innerText = "Verificando...";
+            // status.style.display = 'none';
+
+            try {
+                // 1. Get current DB
+                const port = window.location.port;
+                const baseUrl = (port === '3003' || port === '') ? '' : 'http://127.0.0.1:3003';
+
+                const res = await fetch(`${baseUrl}/api/db?t=${Date.now()}`);
+                const db = await res.json();
+
+                // 2. Validate Credentials Difference
+                const currentPass = (db.appSettings && db.appSettings.adminUser) ? db.appSettings.adminUser.pass : '';
+                const currentUser = (db.appSettings && db.appSettings.adminUser) ? db.appSettings.adminUser.user : '';
+
+                if (newPass === currentPass) {
+                    showError("A nova senha não pode ser igual à senha antiga.");
+                    btn.disabled = false;
+                    btn.innerText = "Atualizar Dados";
+                    return;
+                }
+
+                if (newUser === currentUser) {
+                    showError("O novo usuário não pode ser igual ao usuário antigo.");
+                    btn.disabled = false;
+                    btn.innerText = "Atualizar Dados";
+                    return;
+                }
+
+                btn.innerText = "Salvando...";
+
+                // 3. Update Admin User
+                if (!db.appSettings) db.appSettings = {};
+                db.appSettings.adminUser = {
+                    user: newUser,
+                    pass: newPass
+                };
+
+                // 4. Save DB
+                await fetch(`${baseUrl}/api/db`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(db)
+                });
+
+                // 5. Send Notification to Business Phone
+                const businessPhone = db.appSettings.businessPhone;
+                if (businessPhone && businessPhone.length > 8) {
+                    const msg = `🔐 *ALTERAÇÃO DE ACESSO*\n\nO usuário e senha do painel foram atualizados.\n\n👤 Usuário: *${newUser}*\n🔑 Senha: *${newPass}*\n\nData: ${new Date().toLocaleString('pt-BR')}`;
+
+                    try {
+                        await fetch(`${baseUrl}/api/notify-admin`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                phone: businessPhone,
+                                message: msg
+                            })
+                        });
+                        console.log('Notificação enviada para o admin.');
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+
+                // Show Success Modal
+                const modal = document.getElementById('success-modal');
+                modal.classList.add('active');
+
+                // Clear fields
+                document.getElementById('new-user').value = '';
+                document.getElementById('new-pass').value = '';
+
+                btn.innerText = "Atualizar Dados";
+                btn.disabled = false;
+
+            } catch (e) {
+                console.error(e);
+                showError('Erro ao conectar com o servidor. Verifique sua internet.');
+                btn.disabled = false;
+                btn.innerText = "Atualizar Dados";
+            }
+        }
+    </script>
+</body>
+
+</html>

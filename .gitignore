@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# WhatsApp Session (Browser Cache - LARGE FILES)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Gemini Agent Artifacts
+.gemini/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
