@@ -41,6 +41,11 @@ const serviceForm = document.getElementById('service-form');
 const notificationBell = document.getElementById('notification-bell');
 const notificationBadge = document.getElementById('notification-badge');
 
+// Sidebar Elements (Global for visibility toggle)
+const sidebar = document.getElementById('sidebar');
+const toggleSidebarBtn = document.getElementById('sidebar-toggle');
+const closeSidebarBtn = document.getElementById('sidebar-close');
+
 // --- GLOBAL DATA STATE ---
 let lastSeenAptCount = 0;
 let isInitialLoad = true;
@@ -765,10 +770,7 @@ function setupEventListeners() {
         });
     }
 
-    // Sidebar Toggles
-    const toggleSidebarBtn = document.getElementById('sidebar-toggle');
-    const closeSidebarBtn = document.getElementById('sidebar-close');
-    const sidebar = document.getElementById('sidebar');
+    // Sidebar Toggles (Using Globals)
 
     if (toggleSidebarBtn && sidebar) {
         toggleSidebarBtn.addEventListener('click', (e) => {
