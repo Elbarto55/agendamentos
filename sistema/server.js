@@ -74,6 +74,11 @@ const client = new Client({
 client.on('qr', (qr) => {
     console.log('\n🌟 LEIA O QR CODE ABAIXO NO SEU WHATSAPP (SISTEMA):');
     qrcode.generate(qr, { small: true });
+
+    console.log('\n⚠️ SE O QR CODE ACIMA ESTIVER ILEGÍVEL, COPIE O CÓDIGO ABAIXO E COLE EM UM GERADOR DE QR CODE ONLINE (ex: https://www.the-qrcode-generator.com/):');
+    console.log('--- INCIO DO CÓDIGO ---');
+    console.log(qr);
+    console.log('--- FIM DO CÓDIGO ---');
 });
 
 client.on('ready', () => {
