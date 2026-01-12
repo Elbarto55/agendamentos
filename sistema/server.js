@@ -57,7 +57,7 @@ app.post('/api/db', (req, res) => {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        headless: true,
+        headless: true, // Tente 'new' se der erro, mas true é padrão
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -65,24 +65,8 @@ const client = new Client({
             '--disable-accelerated-2d-canvas',
             '--no-first-run',
             '--no-zygote',
-            '--disable-gpu',
-            '--disable-extensions',
-            '--disable-component-extensions-with-background-pages',
-            '--disable-default-apps',
-            '--mute-audio',
-            '--no-default-browser-check',
-            '--autoplay-policy=user-gesture-required',
-            '--disable-background-timer-throttling',
-            '--disable-backgrounding-occluded-windows',
-            '--disable-notifications',
-            '--disable-background-networking',
-            '--disable-breakpad',
-            '--disable-component-update',
-            '--disable-domain-reliability',
-            '--disable-sync',
-            '--disable-client-side-phishing-detection',
-            '--disable-software-rasterizer',
-            '--disable-features=Translate,BackForwardCache,AcceptCHFrame,MediaRouter,OptimizationHints'
+            '--single-process',
+            '--disable-gpu'
         ]
     }
 });
